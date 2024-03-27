@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add a submit event listener to the form with the id 'createPostForm'. This is for creating new posts.
     document.getElementById('createPostForm').addEventListener('submit', async (e) => {
         e.preventDefault(); // Prevent the default form submit action to handle the submission with JavaScript.
-        const postContent = document.getElementById('blogpost').value; // Get the value entered in the textarea with id 'blogpost'.
+        const postContent = document.getElementById('textarea').value; // Get the value entered in the textarea with id 'textarea'.
         await createPost(postContent); // Call createPost function with the postContent to create a new post.
-        document.getElementById('blogpost').value = ''; // Reset the textarea value to an empty string after submitting.
+        document.getElementById('textarea').value = ''; // Reset the textarea value to an empty string after submitting.
     });
 });
 
@@ -39,7 +39,7 @@ const createPost = async (postContent) => {
     await fetch('/create-post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ blogpost: postContent }), // Convert the post content into JSON format.
+        body: JSON.stringify({ textarea: postContent }), // Convert the post content into JSON format.
     });
     await loadPosts(); // Reload the posts to include the new post.
 };
@@ -93,7 +93,7 @@ const updatePost = async (postId, newContent) => {
         const response = await fetch(`/update-post/${postId}`, {
             method: 'PATCH', // Use the PATCH method to partially update the post.
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ blogpost: newContent }), // Send the updated content as JSON.
+            body: JSON.stringify({ textarea: newContent }), // Send the updated content as JSON.
         });
         if (!response.ok) { // Check if the request failed.
             throw new Error('Failed to update the post'); // Throw an error if the update failed.
